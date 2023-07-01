@@ -82,7 +82,28 @@ function invert(drum) {
 
 }
 
-console.log(`${kicks}
-${snares}
-${hiHats}
-${rideCymbals}`);
+/**
+ * Returns array of neighbors
+ * @param {number} x - grid space zero-indexed from bottom left
+ * @param {number} y  - grid space zero-indexed from bottom left
+ * @param {number} size - number of rows/columns in return square
+ * @returns {Array<*>}
+ */
+
+function getNeighborPads(x,y,size) {
+    const returnArr = [];
+    if (x >= size || y >= size || x < 0 || y < 0 || size < 1) {
+        return returnArr;
+    } else {
+        returnArr[0] = [x - 1, y];
+        returnArr[1] = [x + 1, y];
+        returnArr[2] = [x, y + 1];
+        returnArr[3] = [x, y - 1];
+    }
+
+    return returnArr.filter((neighbor) => {
+        return neighbor.every((val) => {
+            return val >= 0 && val < size;
+        });
+    });
+};
